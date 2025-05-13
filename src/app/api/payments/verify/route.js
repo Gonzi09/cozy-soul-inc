@@ -189,6 +189,10 @@
 // }
 import { NextResponse } from 'next/server';
 
+export async function GET() {
+  return NextResponse.json({ message: 'Stripe verify endpoint disabled' });
+}
+
 export async function POST() {
-  return NextResponse.json({ message: 'Stripe verification temporarily disabled' });
+  return NextResponse.json({ message: 'Stripe verify endpoint disabled' });
 }
