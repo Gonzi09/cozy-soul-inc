@@ -133,9 +133,3 @@
 //     return NextResponse.json({ error: 'Failed to create checkout session' }, { status: 500 });
 //   }
 // }
-
-import { NextResponse } from 'next/server';
-
-export async function POST() {
-  return NextResponse.json({ message: 'Stripe create-checkout disabled' });
-}
