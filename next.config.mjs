@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['placehold.co', 'wvgvuagfxwkluaqoihmn.supabase.co', 'lh3.googleusercontent.com'],
+    domains: ['placehold.co', 'wvgvuagfxwkluaqoihmn.supabase.co','isyqznphxmrjphaqlfsz.supabase.co', 'lh3.googleusercontent.com'],
     // Add any other domains you're using for images
   },
 };
