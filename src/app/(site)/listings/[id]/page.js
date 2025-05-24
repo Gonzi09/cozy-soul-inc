@@ -228,132 +228,143 @@ export default function PropertyPage({ params }) {
   }
   
   // Full screen gallery component - UPDATED to use galleryStartIndex
-  const PhotoGallery = () => {
-    const [currentIndex, setCurrentIndex] = useState(galleryStartIndex)
-    
-    const goToNext = () => {
-      setCurrentIndex((prev) => (prev + 1) % allImages.length)
+// Updated PhotoGallery component with keyboard navigation
+const PhotoGallery = () => {
+  const [currentIndex, setCurrentIndex] = useState(galleryStartIndex)
+  
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % allImages.length)
+  }
+  
+  const goToPrevious = () => {
+    setCurrentIndex((prev) => (prev - 1 + allImages.length) % allImages.length)
+  }
+  
+  // Add keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      switch (event.key) {
+        case 'ArrowRight':
+          event.preventDefault()
+          goToNext()
+          break
+        case 'ArrowLeft':
+          event.preventDefault()
+          goToPrevious()
+          break
+        case 'Escape':
+          event.preventDefault()
+          setShowAllPhotos(false)
+          break
+      }
     }
     
-    const goToPrevious = () => {
-      setCurrentIndex((prev) => (prev - 1 + allImages.length) % allImages.length)
+    // Add event listener when gallery opens
+    document.addEventListener('keydown', handleKeyPress)
+    
+    // Cleanup event listener when component unmounts or gallery closes
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress)
     }
-    
-    // Add keyboard navigation
-    useEffect(() => {
-      const handleKeyPress = (event) => {
-        switch (event.key) {
-          case 'ArrowRight':
-            event.preventDefault()
-            goToNext()
-            break
-          case 'ArrowLeft':
-            event.preventDefault()
-            goToPrevious()
-            break
-          case 'Escape':
-            event.preventDefault()
-            setShowAllPhotos(false)
-            break
-        }
-      }
+  }, []) // Empty dependency array since we want this to run once when component mounts
+  
+  // Don't show gallery controls if there's only one image
+  const showControls = allImages.length > 1
+  
+  return (
+    <div className="fixed inset-0 bg-black z-50 flex flex-col" tabIndex={-1}>
+      <div className="p-4 flex justify-between items-center text-white">
+        <button 
+          type="button"
+          onClick={() => setShowAllPhotos(false)}
+          className="flex items-center hover:text-gray-300"
+        >
+          <ChevronLeft size={24} className="mr-1" />
+          Back
+        </button>
+        {showControls && (
+          <div className="text-sm">
+            {currentIndex + 1} / {allImages.length}
+          </div>
+        )}
+        <div className="text-sm text-gray-300">
+          Use ← → arrow keys to navigate
+        </div>
+      </div>
       
-      // Add event listener when gallery opens
-      document.addEventListener('keydown', handleKeyPress)
-      
-      // Cleanup event listener when component unmounts or gallery closes
-      return () => {
-        document.removeEventListener('keydown', handleKeyPress)
-      }
-    }, []) // Empty dependency array since we want this to run once when component mounts
-    
-    // Don't show gallery controls if there's only one image
-    const showControls = allImages.length > 1
-    
-    return (
-      <div className="fixed inset-0 bg-black z-50 flex flex-col" tabIndex={-1}>
-        <div className="p-4 flex justify-between items-center text-white">
+      <div className="flex-1 flex items-center justify-center relative">
+        {showControls && (
           <button 
             type="button"
-            onClick={() => setShowAllPhotos(false)}
-            className="flex items-center hover:text-gray-300"
+            onClick={goToPrevious}
+            className="absolute left-4 z-10 bg-black/50 rounded-full p-2 text-white hover:bg-black/70"
+            aria-label="Previous image"
           >
-            <ChevronLeft size={24} className="mr-1" />
-            Back
+            <ChevronLeft size={24} />
           </button>
-          {showControls && (
-            <div className="text-sm">
-              {currentIndex + 1} / {allImages.length}
-            </div>
-          )}
-          <div className="text-sm text-gray-300">
-            Use ← → arrow keys to navigate
-          </div>
-        </div>
+        )}
         
-        <div className="flex-1 flex items-center justify-center relative">
-          {showControls && (
-            <button 
-              type="button"
-              onClick={goToPrevious}
-              className="absolute left-4 z-10 bg-black/50 rounded-full p-2 text-white hover:bg-black/70"
-              aria-label="Previous image"
-            >
-              <ChevronLeft size={24} />
-            </button>
-          )}
-          
-          {/* Fixed responsive image container */}
-          <div className="w-full h-full flex items-center justify-center p-4">
-            <div className="relative w-full h-full max-w-7xl max-h-full">
-              <Image
-                src={allImages[currentIndex]}
-                alt={`Photo ${currentIndex + 1}`}
-                fill
-                className="object-contain"
-                sizes="100vw"
-                priority
-              />
-            </div>
+        {/* Fixed responsive image container */}
+        <div className="w-full h-full flex items-center justify-center p-4">
+          <div className="relative w-full h-full max-w-7xl max-h-full">
+            <Image
+              src={allImages[currentIndex]}
+              alt={`Photo ${currentIndex + 1}`}
+              fill
+              className="object-contain"
+              sizes="100vw"
+              priority
+            />
           </div>
-          
-          {showControls && (
-            <button 
-              type="button"
-              onClick={goToNext}
-              className="absolute right-4 z-10 bg-black/50 rounded-full p-2 text-white hover:bg-black/70"
-              aria-label="Next image"
-            >
-              <ChevronRight size={24} />
-            </button>
-          )}
         </div>
         
         {showControls && (
-          <div className="p-4 overflow-x-auto">
-            <div className="flex space-x-2 justify-center">
-              {allImages.map((img, idx) => (
-                <div 
-                  key={idx}
-                  className={`w-20 h-20 relative flex-shrink-0 cursor-pointer rounded-md overflow-hidden ${
-                    idx === currentIndex ? 'ring-2 ring-white' : ''
-                  }`}
-                  onClick={() => setCurrentIndex(idx)}
-                >
-                  <Image
-                    src={img}
-                    alt={`Thumbnail ${idx + 1}`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          <button 
+            type="button"
+            onClick={goToNext}
+            className="absolute right-4 z-10 bg-black/50 rounded-full p-2 text-white hover:bg-black/70"
+            aria-label="Next image"
+          >
+            <ChevronRight size={24} />
+          </button>
         )}
       </div>
-    )
-  }
+      
+      {showControls && (
+        <div className="p-4 overflow-x-auto">
+          <div className="flex space-x-2 justify-center">
+            {allImages.map((img, idx) => (
+              <div 
+                key={idx}
+                className={`w-20 h-20 relative flex-shrink-0 cursor-pointer rounded-md overflow-hidden transition-all duration-200 ${
+                  idx === currentIndex 
+                    ? 'ring-2 ring-white shadow-lg transform scale-105' 
+                    : 'ring-1 ring-gray-600 hover:ring-gray-400'
+                }`}
+                onClick={() => setCurrentIndex(idx)}
+              >
+                <Image
+                  src={img}
+                  alt={`Thumbnail ${idx + 1}`}
+                  fill
+                  className={`object-cover transition-all duration-200 ${
+                    idx === currentIndex ? 'brightness-100' : 'brightness-75 hover:brightness-90'
+                  }`}
+                />
+                {/* Square indicator overlay for selected image */}
+                {idx === currentIndex && (
+                  <div className="absolute inset-0 border-2 border-white bg-white/10 rounded-md pointer-events-none">
+                    <div className="absolute top-1 right-1 w-2 h-2 bg-white rounded-sm"></div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
 
   // Function to determine which grid layout to use based on number of images - UPDATED with specific image clicks
   const getImageGrid = () => {
