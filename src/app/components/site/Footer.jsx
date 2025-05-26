@@ -113,11 +113,11 @@ export default function Footer() {
                 </p>
                 <p className="text-gray-400 flex items-center justify-center md:justify-start">
                   <Mail size={16} className="text-[#FF3366] mr-2 flex-shrink-0" />
-                  <span>Email: info@miamistays.com</span>
+                  <span>Email: alejandraairbnb@gmail.com</span>
                 </p>
                 <p className="text-gray-400 flex items-center justify-center md:justify-start">
                   <Phone size={16} className="text-[#FF3366] mr-2 flex-shrink-0" />
-                  <span>Phone: (305) 555-1234</span>
+                  <span>Phone: (786) 702-5351</span>
                 </p>
               </div>
             </div>
@@ -137,7 +137,7 @@ export default function Footer() {
             {/* Copyright */}
             <div className="flex flex-col items-center md:items-end">
               <p className="text-gray-400">© {currentYear} Cozy Soul Inc. All rights reserved.</p>
-              <p className="text-gray-400 mt-1">Owner: Example</p>
+              <p className="text-gray-400 mt-1">Owner: Coz ySoul Inc</p>
             </div>
           </div>
         </div>
