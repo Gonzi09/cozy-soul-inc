@@ -110,7 +110,7 @@ export default function Contact() {
             </div>
             <div>
               <h3 className="font-medium text-gray-900">Call Us</h3>
-              <p className="text-gray-600 mt-1">(786) 702-5351</p>
+              <p className="text-gray-600 mt-1">+1(786) 702-5351</p>
             </div>
           </div>
 
