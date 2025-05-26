@@ -90,7 +90,7 @@ export default function Contact() {
             </div>
             <div>
               <h3 className="font-medium text-gray-900">Our Location</h3>
-              <p className="text-gray-600 mt-1">123 Main Street, Miami, FL 33101</p>
+              <p className="text-gray-600 mt-1">2371 East Golf Dr, Miami, FL 33167</p>
             </div>
           </div>
 
@@ -100,7 +100,7 @@ export default function Contact() {
             </div>
             <div>
               <h3 className="font-medium text-gray-900">Email Us</h3>
-              <p className="text-gray-600 mt-1">info@cozysoul.com</p>
+              <p className="text-gray-600 mt-1">alejandrairbnb@gmail.com</p>
             </div>
           </div>
 
@@ -110,7 +110,7 @@ export default function Contact() {
             </div>
             <div>
               <h3 className="font-medium text-gray-900">Call Us</h3>
-              <p className="text-gray-600 mt-1">(305) 555-1234</p>
+              <p className="text-gray-600 mt-1">(786) 702-5351</p>
             </div>
           </div>
 
@@ -118,13 +118,13 @@ export default function Contact() {
             <h3 className="text-lg font-medium mb-3">Office Hours</h3>
             <div className="space-y-1 text-gray-600 text-sm">
               <p className="flex justify-between">
-                <span>Monday - Friday:</span> <span>9:00 AM - 6:00 PM</span>
+                <span>Monday - Friday:</span> <span>9:00 AM - 8:00 PM</span>
               </p>
               <p className="flex justify-between">
-                <span>Saturday:</span> <span>10:00 AM - 4:00 PM</span>
+                <span>Saturday:</span> <span>9:00 AM - 7:00 PM</span>
               </p>
               <p className="flex justify-between">
-                <span>Sunday:</span> <span>Closed</span>
+                <span>Sunday:</span> <span>9:00 AM - 7:00 PM</span>
               </p>
             </div>
           </div>
