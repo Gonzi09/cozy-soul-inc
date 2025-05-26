@@ -35,7 +35,7 @@ export default function Contact() {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch('/api/email', {
+      const response = await fetch('/api/email/contact', { //CAMBIO AQUI
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
